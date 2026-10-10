@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.dist-staging/
+.DS_Store
+*:Zone.Identifier
+*:Zone.Identifier:$DATA
+# 試作と参照の画像は手元にだけ置く (public のリポジトリにスクリーンショットを入れない)
+previews/**/*.png
+previews/**/*.webp
