@@ -36,8 +36,8 @@ test("ships only public files with valid versioned stylesheet and script referen
   }
 });
 
-// Cloudflare Pages は dist/_headers を読んで応答のヘッダーを付ける
-test("writes the security and cache headers for Cloudflare Pages", async () => {
+// Cloudflare (Workers の静的アセット) は dist/_headers を読んで応答のヘッダーを付ける
+test("writes the security and cache headers for Cloudflare", async () => {
   const output = await mkdtemp(path.join(os.tmpdir(), "lumorphia-build-"));
   try {
     await build(output);
@@ -94,4 +94,15 @@ test("shows the account entries when accounts is open", async () => {
   } finally {
     await rm(output, { recursive: true, force: true });
   }
+});
+
+// Workers Builds は wrangler deploy を回す。ビルドしてから dist だけを上げる
+test("deploys only the built dist as static assets on Workers", async () => {
+  const config = JSON.parse(
+    await readFile(new URL("../wrangler.jsonc", import.meta.url), "utf8"),
+  );
+  assert.equal(config.build.command, "npm run build");
+  assert.equal(config.assets.directory, "./dist");
+  assert.equal(config.assets.not_found_handling, "404-page");
+  assert.equal(config.main, undefined);
 });
