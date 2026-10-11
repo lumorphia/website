@@ -22,7 +22,7 @@ const accounts = "https://accounts.lumorphia.com";
 function headersFor(versioned) {
   const lines = [
     "/*",
-    `  Content-Security-Policy: default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' https:; connect-src ${accounts} https://cloudflareinsights.com; base-uri 'none'; frame-ancestors 'none'; form-action 'self' ${accounts}`,
+    `  Content-Security-Policy: default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' https:; connect-src 'self' ${accounts} https://cloudflareinsights.com; base-uri 'none'; frame-ancestors 'none'; form-action 'self' ${accounts}`,
     "  X-Content-Type-Options: nosniff",
     "  Referrer-Policy: strict-origin-when-cross-origin",
     "/",
