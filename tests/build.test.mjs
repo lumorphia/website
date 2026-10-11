@@ -63,3 +63,35 @@ test("writes the security and cache headers for Cloudflare Pages", async () => {
     await rm(output, { recursive: true, force: true });
   }
 });
+
+// accounts を開くまでは、ログインと管理の入口を出さず、セッションも見に行かない
+test("hides the account entries until accounts opens", async () => {
+  const output = await mkdtemp(path.join(os.tmpdir(), "lumorphia-build-"));
+  try {
+    await build(output);
+    const html = await readFile(path.join(output, "index.html"), "utf8");
+    const entries = [...html.matchAll(/<[a-z]+[^>]*data-accounts-entry[^>]*>/g)];
+    assert.equal(entries.length, 3);
+    for (const [tag] of entries) assert.match(tag, /\shidden(?=[\s>])/);
+    assert.match(html, /name="lumorphia-accounts-origin"\s+content=""/);
+  } finally {
+    await rm(output, { recursive: true, force: true });
+  }
+});
+
+test("shows the account entries when accounts is open", async () => {
+  const output = await mkdtemp(path.join(os.tmpdir(), "lumorphia-build-"));
+  try {
+    await build(output, { accountsOpen: true });
+    const html = await readFile(path.join(output, "index.html"), "utf8");
+    const entries = [...html.matchAll(/<[a-z]+[^>]*data-accounts-entry[^>]*>/g)];
+    assert.equal(entries.length, 3);
+    for (const [tag] of entries) assert.doesNotMatch(tag, /\shidden(?=[\s>])/);
+    assert.match(
+      html,
+      /name="lumorphia-accounts-origin"\s+content="https:\/\/accounts\.lumorphia\.com"/,
+    );
+  } finally {
+    await rm(output, { recursive: true, force: true });
+  }
+});
