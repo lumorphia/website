@@ -44,18 +44,20 @@ HTMLは再検証、ハッシュ付きCSS・JavaScriptは長期キャッシュ、
 推奨するレスポンスヘッダー（プレビューにも設定済み）：
 
 ```text
-Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https:; connect-src https://accounts.lumorphia.com; base-uri 'none'; frame-ancestors 'none'; form-action 'self' https://accounts.lumorphia.com
+Content-Security-Policy: default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' https:; connect-src https://accounts.lumorphia.com https://cloudflareinsights.com; base-uri 'none'; frame-ancestors 'none'; form-action 'self' https://accounts.lumorphia.com
 X-Content-Type-Options: nosniff
 Referrer-Policy: strict-origin-when-cross-origin
 ```
 
+`static.cloudflareinsights.com` (script-src) と `cloudflareinsights.com` (connect-src) は、Cloudflare が配信のときに自動で差し込む Web Analytics のスクリプトと、その計測の送り先。許可しないと CSP の違反がコンソールに出て、計測も取れない。
+
 配信は Cloudflare Workers の静的アセット (Workers Builds)。本番ブランチは `main`、デプロイコマンドは `npx wrangler deploy`。
 `wrangler.jsonc` がデプロイの前に `npm run build` を回し、`dist` だけを上げる。存在しない URL は `404.html` を 404 で返し、`dist/_headers` もそのまま効く。
 
-Accounts を一般に開くまでは、ビルドがログインとアカウント管理の入口 (`data-accounts-entry`) を `hidden` にし、
-`lumorphia-accounts-origin` を空にして `account.js` がセッションを見に行かないようにする。
-開くときは Workers Builds のビルドの環境変数 `LUMORPHIA_ACCOUNTS_OPEN=1` を設定してビルドし直す。
-`npm run dev` はビルドを通さないので、手元と Accounts の E2E では入口が常に見える。
+ログインとアカウント管理の入口 (`data-accounts-entry`) は普段から出す (Accounts は 2026-10-11 に公開した)。
+障害などで Accounts を閉じるときは、Workers Builds のビルドの環境変数 `LUMORPHIA_ACCOUNTS_CLOSED=1` を設定してビルドし直す。
+ビルドが入口を `hidden` にし、`lumorphia-accounts-origin` を空にして `account.js` がセッションを見に行かないようにする。
+開き直すときは変数を消してビルドし直す。`npm run dev` はビルドを通さないので、手元と Accounts の E2E では入口が常に見える。
 
 ## デザイン・素材
 

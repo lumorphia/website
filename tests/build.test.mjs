@@ -44,7 +44,7 @@ test("writes the security and cache headers for Cloudflare", async () => {
     const headers = await readFile(path.join(output, "_headers"), "utf8");
     assert.ok(
       headers.includes(
-        "Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https:; connect-src https://accounts.lumorphia.com; base-uri 'none'; frame-ancestors 'none'; form-action 'self' https://accounts.lumorphia.com",
+        "Content-Security-Policy: default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' https:; connect-src https://accounts.lumorphia.com https://cloudflareinsights.com; base-uri 'none'; frame-ancestors 'none'; form-action 'self' https://accounts.lumorphia.com",
       ),
     );
     assert.ok(headers.includes("X-Content-Type-Options: nosniff"));
@@ -64,25 +64,11 @@ test("writes the security and cache headers for Cloudflare", async () => {
   }
 });
 
-// accounts を開くまでは、ログインと管理の入口を出さず、セッションも見に行かない
-test("hides the account entries until accounts opens", async () => {
+// accounts は公開したので、ログインと管理の入口は普段から出し、セッションも見に行く
+test("shows the account entries by default", async () => {
   const output = await mkdtemp(path.join(os.tmpdir(), "lumorphia-build-"));
   try {
     await build(output);
-    const html = await readFile(path.join(output, "index.html"), "utf8");
-    const entries = [...html.matchAll(/<[a-z]+[^>]*data-accounts-entry[^>]*>/g)];
-    assert.equal(entries.length, 3);
-    for (const [tag] of entries) assert.match(tag, /\shidden(?=[\s>])/);
-    assert.match(html, /name="lumorphia-accounts-origin"\s+content=""/);
-  } finally {
-    await rm(output, { recursive: true, force: true });
-  }
-});
-
-test("shows the account entries when accounts is open", async () => {
-  const output = await mkdtemp(path.join(os.tmpdir(), "lumorphia-build-"));
-  try {
-    await build(output, { accountsOpen: true });
     const html = await readFile(path.join(output, "index.html"), "utf8");
     const entries = [...html.matchAll(/<[a-z]+[^>]*data-accounts-entry[^>]*>/g)];
     assert.equal(entries.length, 3);
@@ -91,6 +77,21 @@ test("shows the account entries when accounts is open", async () => {
       html,
       /name="lumorphia-accounts-origin"\s+content="https:\/\/accounts\.lumorphia\.com"/,
     );
+  } finally {
+    await rm(output, { recursive: true, force: true });
+  }
+});
+
+// 障害などで accounts を閉じている間は、入口を隠してセッションも見に行かない
+test("hides the account entries while accounts is closed", async () => {
+  const output = await mkdtemp(path.join(os.tmpdir(), "lumorphia-build-"));
+  try {
+    await build(output, { accountsClosed: true });
+    const html = await readFile(path.join(output, "index.html"), "utf8");
+    const entries = [...html.matchAll(/<[a-z]+[^>]*data-accounts-entry[^>]*>/g)];
+    assert.equal(entries.length, 3);
+    for (const [tag] of entries) assert.match(tag, /\shidden(?=[\s>])/);
+    assert.match(html, /name="lumorphia-accounts-origin"\s+content=""/);
   } finally {
     await rm(output, { recursive: true, force: true });
   }
