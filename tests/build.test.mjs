@@ -44,7 +44,7 @@ test("writes the security and cache headers for Cloudflare", async () => {
     const headers = await readFile(path.join(output, "_headers"), "utf8");
     assert.ok(
       headers.includes(
-        "Content-Security-Policy: default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' https:; connect-src https://accounts.lumorphia.com https://cloudflareinsights.com; base-uri 'none'; frame-ancestors 'none'; form-action 'self' https://accounts.lumorphia.com",
+        "Content-Security-Policy: default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' https:; connect-src 'self' https://accounts.lumorphia.com https://cloudflareinsights.com; base-uri 'none'; frame-ancestors 'none'; form-action 'self' https://accounts.lumorphia.com",
       ),
     );
     assert.ok(headers.includes("X-Content-Type-Options: nosniff"));

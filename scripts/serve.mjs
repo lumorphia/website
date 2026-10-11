@@ -26,7 +26,7 @@ const handler = async (request, response) => {
   response.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
   response.setHeader(
     "Content-Security-Policy",
-    `default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' https:; connect-src ${accountOrigin} https://cloudflareinsights.com; base-uri 'none'; frame-ancestors 'none'; form-action 'self' ${accountOrigin}`,
+    `default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' https:; connect-src 'self' ${accountOrigin} https://cloudflareinsights.com; base-uri 'none'; frame-ancestors 'none'; form-action 'self' ${accountOrigin}`,
   );
   response.setHeader("Cache-Control", "no-store");
   if (!["GET", "HEAD"].includes(request.method)) {
