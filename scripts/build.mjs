@@ -40,7 +40,20 @@ function headersFor(versioned) {
   ];
   return `${lines.join("\n")}\n`;
 }
-export async function build(destination = output) {
+/**
+ * accounts を開くまでは、ログインと管理の入口 (data-accounts-entry) を隠し、
+ * account.js がセッションを見に行かないよう accounts の origin を空にする。
+ */
+function gateAccounts(html, accountsOpen) {
+  if (accountsOpen) return html;
+  return html
+    .replaceAll("data-accounts-entry", "data-accounts-entry hidden")
+    .replace(
+      /(name="lumorphia-accounts-origin"\s+content=)"[^"]*"/,
+      '$1""',
+    );
+}
+export async function build(destination = output, { accountsOpen = false } = {}) {
   await mkdir(destination, { recursive: true });
   await mkdir(path.join(destination, "assets"), { recursive: true });
   const filenames = new Map();
@@ -55,6 +68,7 @@ export async function build(destination = output) {
     let html = await readFile(path.join(root, name), "utf8");
     for (const [original, versioned] of filenames)
       html = html.replaceAll(original, versioned);
+    html = gateAccounts(html, accountsOpen);
     await writeFile(path.join(destination, name), html);
   }
   await writeFile(path.join(destination, "_headers"), headersFor([...filenames.values()]));
@@ -71,7 +85,10 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const staging = path.join(root, ".dist-staging");
   try {
     await rm(staging, { recursive: true, force: true });
-    await build(staging);
+    // Cloudflare Pages の環境変数。accounts を開くときに 1 にしてビルドし直す
+    await build(staging, {
+      accountsOpen: process.env.LUMORPHIA_ACCOUNTS_OPEN === "1",
+    });
     await rm(output, { recursive: true, force: true });
     await rename(staging, output);
     console.log("Built dist/ for https://lumorphia.com/");
