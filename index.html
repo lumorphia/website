@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="ja" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Lumorphia は、FINAL FANTASY XIV の写真とミラプリを楽しむためのサービスを作っています。"
+    />
+    <title>Lumorphia — 好きな瞬間を、もっと楽しむ。</title>
+    <link rel="canonical" href="https://lumorphia.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Lumorphia" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:url" content="https://lumorphia.com/" />
+    <meta
+      property="og:title"
+      content="Lumorphia — 好きな瞬間を、もっと楽しむ。"
+    />
+    <meta
+      property="og:description"
+      content="Lumorphia は、FINAL FANTASY XIV の写真とミラプリを楽しむためのサービスを作っています。"
+    />
+    <meta
+      property="og:image"
+      content="https://lumorphia.com/assets/lumorphia-logo.png"
+    />
+    <meta property="og:image:width" content="1983" />
+    <meta property="og:image:height" content="793" />
+    <meta property="og:image:alt" content="Lumorphia のロゴ" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="assets/lumorphia-icon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/lumorphia-icon.png" />
+    <meta
+      name="lumorphia-accounts-origin"
+      content="https://accounts.lumorphia.com"
+    />
+    <script src="theme.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <script src="account.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">本文へ移動</a>
+    <header class="header wrap">
+      <a class="brand" href="#" aria-label="Lumorphia トップ"
+        ><img
+          src="assets/lumorphia-icon.png"
+          width="36"
+          height="36"
+          alt=""
+        /><span>Lumorphia</span></a
+      >
+      <nav aria-label="メインナビゲーション">
+        <a href="#services">サービス</a
+        ><button
+          class="theme"
+          type="button"
+          aria-label="ダーク表示に切り替える"
+          aria-pressed="false"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path d="M20.5 14A9 9 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z" />
+          </svg>
+          <svg
+            class="sun"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"
+            />
+          </svg></button
+        ><a
+          class="account-link"
+          id="account-login"
+          data-accounts-entry
+          href="https://accounts.lumorphia.com/login"
+          >ログイン
+          <svg
+            class="external-link-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M14 3h7v7M21 3l-10 10M10 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"
+            /></svg
+        ></a>
+        <div class="account-menu-wrap" id="account-user" hidden>
+          <button
+            class="account-menu-toggle"
+            id="account-menu-toggle"
+            type="button"
+            aria-label="アカウントメニュー"
+            aria-expanded="false"
+            aria-controls="account-menu"
+          >
+            <span class="avatar" id="account-avatar" aria-hidden="true"></span
+            ><span class="account-menu-label" id="account-name"></span
+            ><span aria-hidden="true">⌄</span>
+          </button>
+          <div class="account-menu" id="account-menu" hidden>
+            <div class="menu-identity">
+              <strong id="menu-name"></strong><small id="menu-handle"></small>
+            </div>
+            <a href="https://accounts.lumorphia.com/settings"
+              >アカウント管理
+              <svg
+                class="external-link-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M14 3h7v7M21 3l-10 10M10 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"
+                /></svg
+            ></a>
+            <form action="https://accounts.lumorphia.com/logout" method="post">
+              <button type="submit">ログアウト</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">A PLACE FOR YOUR FAVORITE MOMENTS</p>
+          <h1 id="hero-title">好きな瞬間を、<br />もっと楽しむ。</h1>
+          <p class="hero-description">
+            お気に入りのミラプリ。旅先で見つけた景色。<br />エオルゼアで過ごす時間を、写真に残す。<br />Lumorphia
+            は、その楽しみを広げる場所を作っています。
+          </p>
+          <a class="primary" href="#services"
+            >サービスを見る <span aria-hidden="true">↓</span></a
+          >
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-visual">
+            <div class="hero-halo"></div>
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <img
+              class="hero-logo"
+              src="assets/lumorphia-logo.png"
+              width="1983"
+              height="793"
+              alt=""
+              fetchpriority="high"
+            />
+            <span class="light-point point-one"></span>
+            <span class="light-point point-two"></span>
+          </div>
+          <span class="art-note">LIGHT / MOMENTS / CONNECTION</span>
+        </div>
+        <div class="hero-bottom">
+          <span>Tools & places for FINAL FANTASY XIV</span
+          ><span>Explore Lumorphia <span aria-hidden="true">↓</span></span>
+        </div>
+      </section>
+      <section
+        id="services"
+        class="services wrap"
+        aria-labelledby="services-title"
+      >
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">01 / OUR SERVICES</p>
+            <h2 id="services-title">楽しみ方に合わせて。</h2>
+          </div>
+          <p>
+            写真を整える。ミラプリを探す。思い出を残す。<br />それぞれの楽しみ方に合うサービスを。
+          </p>
+        </div>
+        <div class="service-grid">
+          <article class="service service-prismtone">
+            <div class="service-media">
+              <img
+                src="assets/prismtone-photo.webp"
+                width="1600"
+                height="900"
+                alt="青い海を背景に白いミラプリを着た、FINAL FANTASY XIVのキャラクター"
+                loading="lazy"
+              />
+            </div>
+            <div class="service-body">
+              <div class="service-name">
+                <h3 class="prismtone-name">
+                  <img
+                    class="logo-light"
+                    src="assets/prismtone-light-wordmark.svg"
+                    width="259"
+                    height="61"
+                    alt="Prismtone"
+                  />
+                  <img
+                    class="logo-dark"
+                    src="assets/prismtone-dark-wordmark.svg"
+                    width="259"
+                    height="61"
+                    alt="Prismtone"
+                  />
+                </h3>
+                <span class="category">ミラプリ・写真編集</span>
+              </div>
+              <p>
+                お気に入りのミラプリを、もっといい一枚に。<br />写真を編集して、装備や染色の情報と一緒に共有できます。
+              </p>
+              <a href="https://prismtone.lumorphia.com/" class="service-action"
+                >Prismtone を見る
+                <svg
+                  class="external-link-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M14 3h7v7M21 3l-10 10M10 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"
+                  /></svg
+              ></a>
+            </div>
+          </article>
+          <article class="service service-scenote">
+            <div class="service-media landscape" aria-hidden="true">
+              <div class="landscape-sun"></div>
+              <div class="landscape-hill hill-back"></div>
+              <div class="landscape-hill hill-front"></div>
+              <div class="landscape-line"></div>
+              <span class="landscape-caption">A MOMENT TO KEEP</span>
+            </div>
+            <div class="service-body">
+              <div class="service-name">
+                <h3 class="scenote-name">Scenote</h3>
+                <span class="category">準備中</span>
+              </div>
+              <p>
+                旅先の景色も、フレンドと過ごした時間も。<br />風景や日常の写真を編集し、記録・共有する場所を準備しています。
+              </p>
+              <span class="coming"
+                >風景・日常・旅の記録 <span>COMING SOON</span></span
+              >
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="account-section wrap" aria-labelledby="account-title">
+        <div class="account-symbol" aria-hidden="true">
+          <svg
+            viewBox="0 0 100 100"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.2"
+          >
+            <circle cx="50" cy="50" r="37" />
+            <circle cx="50" cy="40" r="10" />
+            <path d="M30 69a20 20 0 0 1 40 0M4 50h9m74 0h9" />
+          </svg>
+        </div>
+        <div class="account-copy">
+          <p class="eyebrow">ONE LUMORPHIA ACCOUNT</p>
+          <h2 id="account-title">いつもの自分で、それぞれの場所へ。</h2>
+          <p>
+            プロフィールとログインは、Lumorphia アカウントで。<br />各サービスで使う名前やアイコン、キャラクター情報をまとめて管理します。
+          </p>
+        </div>
+        <a
+          class="outline"
+          href="https://accounts.lumorphia.com/settings"
+          data-accounts-entry
+          >アカウントを管理
+          <svg
+            class="external-link-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M14 3h7v7M21 3l-10 10M10 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"
+            /></svg
+        ></a>
+      </section>
+    </main>
+    <footer class="footer wrap">
+      <div class="footer-main">
+        <a class="brand" href="#" aria-label="Lumorphia トップ"
+          ><img
+            src="assets/lumorphia-icon.png"
+            width="36"
+            height="36"
+            alt=""
+          /><span>Lumorphia</span></a
+        >
+        <nav aria-label="フッターナビゲーション">
+          <a href="#services">サービス</a
+          ><a href="https://accounts.lumorphia.com/settings" data-accounts-entry
+            >アカウント
+            <svg
+              class="external-link-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M14 3h7v7M21 3l-10 10M10 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"
+              /></svg></a
+          ><a href="https://github.com/lumorphia"
+            >GitHub
+            <svg
+              class="external-link-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M14 3h7v7M21 3l-10 10M10 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"
+              /></svg
+          ></a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>© Lumorphia</span>
+        <p>
+          本サイトは非公式のファンプロジェクトです。<br />
+          <span class="game-copyright">© SQUARE ENIX</span>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

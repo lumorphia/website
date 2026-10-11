@@ -49,8 +49,12 @@ X-Content-Type-Options: nosniff
 Referrer-Policy: strict-origin-when-cross-origin
 ```
 
-このワークスペースではまだ本番配信・GitHubリポジトリ作成を行っていない。
-Prismtone、Accountsへの外部リンク先の公開状態は未検証。
+配信は Cloudflare Pages。本番ブランチは `main`、ビルドコマンドは `npm run build`、出力は `dist`。
+
+Accounts を一般に開くまでは、ビルドがログインとアカウント管理の入口 (`data-accounts-entry`) を `hidden` にし、
+`lumorphia-accounts-origin` を空にして `account.js` がセッションを見に行かないようにする。
+開くときは Pages の環境変数 `LUMORPHIA_ACCOUNTS_OPEN=1` を設定してビルドし直す。
+`npm run dev` はビルドを通さないので、手元と Accounts の E2E では入口が常に見える。
 
 ## デザイン・素材
 
