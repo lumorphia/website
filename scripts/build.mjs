@@ -16,7 +16,7 @@ const assets = [
 ];
 const accounts = "https://accounts.lumorphia.com";
 /**
- * Cloudflare Pages の _headers。全体に CSP などを付け、HTML は毎回確かめ、
+ * Cloudflare の _headers (Workers の静的アセットが読む)。全体に CSP などを付け、HTML は毎回確かめ、
  * ハッシュ付きの CSS・JavaScript は長く、固定名の画像は短く持たせる。
  */
 function headersFor(versioned) {
@@ -85,7 +85,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const staging = path.join(root, ".dist-staging");
   try {
     await rm(staging, { recursive: true, force: true });
-    // Cloudflare Pages の環境変数。accounts を開くときに 1 にしてビルドし直す
+    // Workers Builds のビルドの環境変数。accounts を開くときに 1 にしてビルドし直す
     await build(staging, {
       accountsOpen: process.env.LUMORPHIA_ACCOUNTS_OPEN === "1",
     });
