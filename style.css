@@ -471,6 +471,62 @@ h2 {
   border: 1px solid #ffffff70;
   border-radius: 2px;
 }
+/* CueLine: タイムラインの棒と合図の点。CSS のイメージ図で、実際の画面ではない */
+.cueline-name {
+  font-family: Arial, sans-serif;
+  letter-spacing: -0.5px;
+}
+.cue-timeline {
+  position: relative;
+  background: #e2e5f3;
+}
+.cue-axis {
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  top: 68%;
+  height: 4px;
+  border-radius: 2px;
+  background: #bfc4e0;
+}
+.cue-bar {
+  position: absolute;
+  bottom: 32%;
+  width: 6%;
+  border-radius: 999px;
+  background: #969fc7;
+}
+.cue-bar-1 {
+  left: 24%;
+  height: 20%;
+}
+.cue-bar-2 {
+  left: 46%;
+  height: 38%;
+  background: #6f79b0;
+}
+.cue-bar-3 {
+  left: 68%;
+  height: 14%;
+}
+.cue-dot {
+  position: absolute;
+  left: 46.5%;
+  top: 16%;
+  width: 5%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff6ef;
+}
+.cue-caption {
+  position: absolute;
+  top: 30px;
+  left: 34px;
+  font-family: Arial, sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: #6f79b0;
+}
 .landscape-caption {
   position: absolute;
   top: 30px;
