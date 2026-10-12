@@ -48,17 +48,25 @@ test("writes the security and cache headers for Cloudflare", async () => {
       ),
     );
     assert.ok(headers.includes("X-Content-Type-Options: nosniff"));
-    assert.ok(headers.includes("Referrer-Policy: strict-origin-when-cross-origin"));
+    assert.ok(
+      headers.includes("Referrer-Policy: strict-origin-when-cross-origin"),
+    );
     const files = await readdir(output);
-    const versioned = files.filter((f) => /\.[a-f0-9]{12}\.(?:css|js)$/.test(f));
+    const versioned = files.filter((f) =>
+      /\.[a-f0-9]{12}\.(?:css|js)$/.test(f),
+    );
     assert.equal(versioned.length, 4);
     for (const file of versioned)
       assert.ok(
-        headers.includes(`/${file}\n  Cache-Control: public, max-age=31536000, immutable`),
+        headers.includes(
+          `/${file}\n  Cache-Control: public, max-age=31536000, immutable`,
+        ),
         file,
       );
     assert.ok(headers.includes("/\n  Cache-Control: no-cache"));
-    assert.ok(headers.includes("/assets/*\n  Cache-Control: public, max-age=86400"));
+    assert.ok(
+      headers.includes("/assets/*\n  Cache-Control: public, max-age=86400"),
+    );
   } finally {
     await rm(output, { recursive: true, force: true });
   }
@@ -70,7 +78,9 @@ test("shows the account entries by default", async () => {
   try {
     await build(output);
     const html = await readFile(path.join(output, "index.html"), "utf8");
-    const entries = [...html.matchAll(/<[a-z]+[^>]*data-accounts-entry[^>]*>/g)];
+    const entries = [
+      ...html.matchAll(/<[a-z]+[^>]*data-accounts-entry[^>]*>/g),
+    ];
     assert.equal(entries.length, 3);
     for (const [tag] of entries) assert.doesNotMatch(tag, /\shidden(?=[\s>])/);
     assert.match(
@@ -88,7 +98,9 @@ test("hides the account entries while accounts is closed", async () => {
   try {
     await build(output, { accountsClosed: true });
     const html = await readFile(path.join(output, "index.html"), "utf8");
-    const entries = [...html.matchAll(/<[a-z]+[^>]*data-accounts-entry[^>]*>/g)];
+    const entries = [
+      ...html.matchAll(/<[a-z]+[^>]*data-accounts-entry[^>]*>/g),
+    ];
     assert.equal(entries.length, 3);
     for (const [tag] of entries) assert.match(tag, /\shidden(?=[\s>])/);
     assert.match(html, /name="lumorphia-accounts-origin"\s+content=""/);
@@ -106,4 +118,13 @@ test("deploys only the built dist as static assets on Workers", async () => {
   assert.equal(config.assets.directory, "./dist");
   assert.equal(config.assets.not_found_handling, "404-page");
   assert.equal(config.main, undefined);
+});
+
+test("lists CueLine with its own address", async () => {
+  const html = await readFile(
+    new URL("../index.html", import.meta.url),
+    "utf8",
+  );
+  assert.ok(html.includes('class="service service-cueline"'));
+  assert.ok(html.includes('href="https://cueline.lumorphia.com/"'));
 });
